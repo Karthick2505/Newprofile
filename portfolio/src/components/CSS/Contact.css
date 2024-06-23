@@ -1,5 +1,5 @@
 #contact {
-    background-color: #a04343;
+    background-color: #000000;
     padding: 60px 20px;
     text-align: center;
   }
@@ -7,7 +7,7 @@
   #contact h2 {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #333;
+    color: #ffffff;
   }
   
   #contact form {
@@ -20,7 +20,7 @@
   
   #contact label {
     font-size: 1rem;
-    color: #666;
+    color: #ffffff;
     text-align: left;
   }
   
@@ -36,7 +36,7 @@
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #09a02c;
     color: #fff;
     font-size: 1rem;
     cursor: pointer;

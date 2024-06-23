@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './CSS/Contact.css';
 
 const Contact = () => {
@@ -9,8 +8,6 @@ const Contact = () => {
     message: ''
   });
 
-  const [responseMessage, setResponseMessage] = useState('');
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -19,18 +16,26 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    axios.post('http://localhost:5000/api/contact', formData)
-      .then(response => {
-        setResponseMessage('Message sent successfully');
-        setFormData({ name: '', email: '', message: '' });
-      })
-      .catch(error => {
-        setResponseMessage('Failed to send message');
-        console.error('There was an error!', error);
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
       });
+      if (response.ok) {
+        alert('Message sent successfully');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        alert('Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred');
+    }
   };
 
   return (
@@ -45,7 +50,7 @@ const Contact = () => {
           onChange={handleChange}
           required
         />
-
+        
         <label>Email:</label>
         <input
           type="email"
@@ -54,7 +59,7 @@ const Contact = () => {
           onChange={handleChange}
           required
         />
-
+        
         <label>Message:</label>
         <textarea
           name="message"
@@ -62,10 +67,9 @@ const Contact = () => {
           onChange={handleChange}
           required
         ></textarea>
-
+        
         <button type="submit">Send</button>
       </form>
-      {responseMessage && <p>{responseMessage}</p>}
     </section>
   );
 };
